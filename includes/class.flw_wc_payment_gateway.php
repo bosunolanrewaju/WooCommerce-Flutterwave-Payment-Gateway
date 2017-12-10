@@ -30,6 +30,14 @@
       $this->description  = __( 'Pay with your bank account or credit/debit card', 'flw-payments' );
       $this->enabled      = $this->get_option( 'enabled' );
       $this->public_key   = $this->get_option( 'public_key' );
+<<<<<<< HEAD
+=======
+      $this->secret_key   = $this->get_option( 'secret_key' );
+      $this->go_live      = $this->get_option( 'go_live' );
+      $this->logo      = $this->get_option( 'modal_logo' );
+      $this->payment_method = $this->get_option( 'payment_method' );
+      $this->country = $this->get_option( 'country' );
+>>>>>>> 6e69def... Added custom_logo feature
 
       add_action( 'admin_notices', array( $this, 'admin_notices' ) );
       add_action( 'woocommerce_receipt_' . $this->id, array($this, 'receipt_page'));
@@ -75,6 +83,12 @@
           'title'       => __( 'Modal Description', 'flw-payments' ),
           'type'        => 'text',
           'description' => __( 'Optional - The description of the payment modal (default: FLW PAY MODAL)', 'flw-payments' ),
+          'default'     => ''
+        ),
+        'modal_logo' => array(
+          'title'       => __( 'Modal Custom Logo', 'flw-payments' ),
+          'type'        => 'text',
+          'description' => __( 'Optional - The store custom logo. It has to be a URL', 'flw-payments' ),
           'default'     => ''
         ),
 
@@ -174,7 +188,12 @@
           $payment_args['email']  = $email;
           $payment_args['txnref'] = $txnref;
           $payment_args['title']  = $this->get_option( 'modal_title' );
+<<<<<<< HEAD
 
+=======
+          $payment_args['logo']  = $this->get_option( 'modal_logo' );
+          
+>>>>>>> 6e69def... Added custom_logo feature
         }
 
         update_post_meta( $order_id, '_flw_payment_txn_ref', $txnref );

@@ -6,6 +6,7 @@ var amount = flw_payment_args.amount,
     email  = flw_payment_args.email,
     form   = jQuery( '#flw-pay-now-button' ),
     p_key  = flw_payment_args.p_key,
+    logo   = flw_payment_args.logo,
     title  = flw_payment_args.title,
     txref  = flw_payment_args.txnref,
     redirect_url;
@@ -24,6 +25,7 @@ var processPayment = function() {
   getpaidSetup({
     amount: amount,
     custom_description: desc,
+    custom_logo: logo,    
     custom_title: title,
     customer_email: email,
     txref: txref,
