@@ -14,9 +14,9 @@
      */
     public function __construct() {
 
-      $this->base_url = 'http://flw-pms-dev.eu-west-1.elasticbeanstalk.com';
+      $this->base_url = 'https://rave-api-v2.herokuapp.com';
       $this->id = 'rave';
-      $this->icon = null;
+      $this->icon = 'https://res.cloudinary.com/dkbfehjxf/image/upload/v1511542310/Pasted_image_at_2017_11_09_04_50_PM_vc75kz.png';
       $this->has_fields         = false;
       $this->method_title       = __( 'Rave', 'flw-payments' );
       $this->method_description = __( 'Rave Payment Gateway', 'flw-payments' );
@@ -43,6 +43,7 @@
       $this->logo      = $this->get_option( 'modal_logo' );
       $this->payment_method = $this->get_option( 'payment_method' );
       $this->country = $this->get_option( 'country' );
+<<<<<<< HEAD
 >>>>>>> 6e69def... Added custom_logo feature
 =======
       $this->go_live      = $this->get_option( 'go_live' );
@@ -50,6 +51,8 @@
 =======
       $this->payment_method = $this->get_option( 'payment_method' );
 >>>>>>> 0487948... Add payment method option
+=======
+>>>>>>> f57eaa9... Explicitly set charge country from plugin settings page
 
       add_action( 'admin_notices', array( $this, 'admin_notices' ) );
       add_action( 'woocommerce_receipt_' . $this->id, array($this, 'receipt_page'));
@@ -84,6 +87,14 @@
           'default'     => 'no',
           'desc_tip'    => true
         ),
+        'go_live' => array(
+          'title'       => __( 'Go Live', 'flw-payments' ),
+          'label'       => __( 'Switch to live account', 'flw-payments' ),
+          'type'        => 'checkbox',
+          'description' => __( 'Ensure that you are using a public key and secret key generated from the live account.', 'flw-payments' ),
+          'default'     => 'no',
+          'desc_tip'    => true
+        ),
         'public_key' => array(
           'title'       => __( 'Rave Checkout Public Key', 'flw-payments' ),
           'type'        => 'text',
@@ -107,13 +118,16 @@
           ),
           'default'     => ''
         ),
-        'go_live' => array(
-          'title'       => __( 'Go Live', 'flw-payments' ),
-          'label'       => __( 'Switch to live account', 'flw-payments' ),
-          'type'        => 'checkbox',
-          'description' => __( 'Ensure that you are using a public key and secret key generated from the live account.', 'flw-payments' ),
-          'default'     => 'no',
-          'desc_tip'    => true
+        'country' => array(
+          'title'       => __( 'Charge Country', 'flw-payments' ),
+          'type'        => 'select',
+          'description' => __( 'Optional - Charge country. (Default: NG)', 'flw-payments' ),
+          'options'     => array(
+            'NG' => esc_html_x( 'NG', 'country', 'flw-payments' ),
+            'GH' => esc_html_x( 'GH', 'country', 'flw-payments' ),
+            'KE' => esc_html_x( 'KE', 'country', 'flw-payments' ),
+          ),
+          'default'     => ''
         ),
         'modal_title' => array(
           'title'       => __( 'Modal Title', 'flw-payments' ),
@@ -221,7 +235,7 @@
         $amount    = $order->order_total;
         $email     = $order->billing_email;
         $currency  = get_option('woocommerce_currency');
-        $country  = get_option('woocommerce_default_country');
+        $country  = $this->country;
 
         if ( $order->order_key == $order_key ) {
 
