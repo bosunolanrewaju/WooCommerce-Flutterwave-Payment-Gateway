@@ -11,6 +11,7 @@ var amount = flw_payment_args.amount,
     logo   = flw_payment_args.logo,
     title  = flw_payment_args.title,
     txref  = flw_payment_args.txnref,
+    paymentMethod  = flw_payment_args.payment_method,
     redirect_url;
 
 if ( form ) {
@@ -33,6 +34,7 @@ var processPayment = function() {
     custom_title: title,
     customer_email: email,
     txref: txref,
+    payment_method: paymentMethod,
     PBFPubKey: p_key,
     onclose: function(){
       if (redirect_url) {

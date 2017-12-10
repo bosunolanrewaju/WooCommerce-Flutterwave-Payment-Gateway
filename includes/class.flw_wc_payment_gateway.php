@@ -39,6 +39,7 @@
 >>>>>>> 56c8379... Add currency and transaction verification
       $this->secret_key   = $this->get_option( 'secret_key' );
       $this->go_live      = $this->get_option( 'go_live' );
+<<<<<<< HEAD
       $this->logo      = $this->get_option( 'modal_logo' );
       $this->payment_method = $this->get_option( 'payment_method' );
       $this->country = $this->get_option( 'country' );
@@ -46,6 +47,9 @@
 =======
       $this->go_live      = $this->get_option( 'go_live' );
 >>>>>>> e0dac6e... Add go live and secret key option settings
+=======
+      $this->payment_method = $this->get_option( 'payment_method' );
+>>>>>>> 0487948... Add payment method option
 
       add_action( 'admin_notices', array( $this, 'admin_notices' ) );
       add_action( 'woocommerce_receipt_' . $this->id, array($this, 'receipt_page'));
@@ -90,6 +94,17 @@
           'title'       => __( 'Rave Checkout Secret Key', 'flw-payments' ),
           'type'        => 'text',
           'description' => __( 'Required! Enter your Rave Checkout secret key here', 'flw-payments' ),
+          'default'     => ''
+        ),
+        'payment_method' => array(
+          'title'       => __( 'Payment Method', 'flw-payments' ),
+          'type'        => 'select',
+          'description' => __( 'Optional - Choice of payment method to use. Card, Account or Both. (Default: both)', 'flw-payments' ),
+          'options'     => array(
+            'both' => esc_html_x( 'Card and Account', 'payment_method', 'flw-payments' ),
+            'card'  => esc_html_x( 'Card Only',  'payment_method', 'flw-payments' ),
+            'account'  => esc_html_x( 'Account Only',  'payment_method', 'flw-payments' ),
+          ),
           'default'     => ''
         ),
         'go_live' => array(
@@ -195,6 +210,7 @@
       wp_enqueue_script( 'flw_js', plugins_url( 'assets/js/flw.js', FLW_WC_PLUGIN_FILE ), array( 'jquery', 'flwpbf_inline_js' ), '1.0.0', true );
 
       $p_key = $this->public_key;
+      $payment_method = $this->payment_method;
 
       if ( get_query_var( 'order-pay' ) ) {
 
@@ -209,16 +225,19 @@
 
         if ( $order->order_key == $order_key ) {
 
-          $payment_args = compact( 'amount', 'email', 'txnref', 'p_key', 'currency', 'country' );
+          $payment_args = compact( 'amount', 'email', 'txnref', 'p_key', 'currency', 'country', 'payment_method' );
           $payment_args['cb_url'] = WC()->api_request_url( 'FLW_WC_Payment_Gateway' );
           $payment_args['desc']   = $this->get_option( 'modal_description' );
           $payment_args['title']  = $this->get_option( 'modal_title' );
+<<<<<<< HEAD
 <<<<<<< HEAD
 
 =======
           $payment_args['logo']  = $this->get_option( 'modal_logo' );
           
 >>>>>>> 6e69def... Added custom_logo feature
+=======
+>>>>>>> 0487948... Add payment method option
         }
 
         update_post_meta( $order_id, '_flw_payment_txn_ref', $txnref );
