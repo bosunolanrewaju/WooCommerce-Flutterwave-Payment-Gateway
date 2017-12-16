@@ -31,28 +31,11 @@
       $this->description  = __( 'Pay with your bank account or credit/debit card', 'flw-payments' );
       $this->enabled      = $this->get_option( 'enabled' );
       $this->public_key   = $this->get_option( 'public_key' );
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-=======
->>>>>>> 56c8379... Add currency and transaction verification
       $this->secret_key   = $this->get_option( 'secret_key' );
       $this->go_live      = $this->get_option( 'go_live' );
-<<<<<<< HEAD
-      $this->logo      = $this->get_option( 'modal_logo' );
+      $this->logo         = $this->get_option( 'modal_logo' );
       $this->payment_method = $this->get_option( 'payment_method' );
       $this->country = $this->get_option( 'country' );
-<<<<<<< HEAD
->>>>>>> 6e69def... Added custom_logo feature
-=======
-      $this->go_live      = $this->get_option( 'go_live' );
->>>>>>> e0dac6e... Add go live and secret key option settings
-=======
-      $this->payment_method = $this->get_option( 'payment_method' );
->>>>>>> 0487948... Add payment method option
-=======
->>>>>>> f57eaa9... Explicitly set charge country from plugin settings page
 
       add_action( 'admin_notices', array( $this, 'admin_notices' ) );
       add_action( 'woocommerce_receipt_' . $this->id, array($this, 'receipt_page'));
@@ -243,15 +226,8 @@
           $payment_args['cb_url'] = WC()->api_request_url( 'FLW_WC_Payment_Gateway' );
           $payment_args['desc']   = $this->get_option( 'modal_description' );
           $payment_args['title']  = $this->get_option( 'modal_title' );
-<<<<<<< HEAD
-<<<<<<< HEAD
-
-=======
-          $payment_args['logo']  = $this->get_option( 'modal_logo' );
+          $payment_args['logo']   = $this->get_option( 'modal_logo' );
           
->>>>>>> 6e69def... Added custom_logo feature
-=======
->>>>>>> 0487948... Add payment method option
         }
 
         update_post_meta( $order_id, '_flw_payment_txn_ref', $txnref );
