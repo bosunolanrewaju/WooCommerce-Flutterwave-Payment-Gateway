@@ -14,9 +14,9 @@
      */
     public function __construct() {
 
-      $this->base_url = 'http://flw-pms-dev.eu-west-1.elasticbeanstalk.com';
+      $this->base_url = 'https://rave-api-v2.herokuapp.com';
       $this->id = 'rave';
-      $this->icon = null;
+      $this->icon = 'https://res.cloudinary.com/dkbfehjxf/image/upload/v1511542310/Pasted_image_at_2017_11_09_04_50_PM_vc75kz.png';
       $this->has_fields         = false;
       $this->method_title       = __( 'Rave', 'flw-payments' );
       $this->method_description = __( 'Rave Payment Gateway', 'flw-payments' );
@@ -33,6 +33,7 @@
       $this->public_key   = $this->get_option( 'public_key' );
       $this->secret_key   = $this->get_option( 'secret_key' );
       $this->go_live      = $this->get_option( 'go_live' );
+      $this->logo         = $this->get_option( 'modal_logo' );
       $this->payment_method = $this->get_option( 'payment_method' );
       $this->country = $this->get_option( 'country' );
 
@@ -121,6 +122,12 @@
           'title'       => __( 'Modal Description', 'flw-payments' ),
           'type'        => 'text',
           'description' => __( 'Optional - The description of the payment modal (default: FLW PAY MODAL)', 'flw-payments' ),
+          'default'     => ''
+        ),
+        'modal_logo' => array(
+          'title'       => __( 'Modal Custom Logo', 'flw-payments' ),
+          'type'        => 'text',
+          'description' => __( 'Optional - The store custom logo. It has to be a URL', 'flw-payments' ),
           'default'     => ''
         ),
 
@@ -219,6 +226,8 @@
           $payment_args['cb_url'] = WC()->api_request_url( 'FLW_WC_Payment_Gateway' );
           $payment_args['desc']   = $this->get_option( 'modal_description' );
           $payment_args['title']  = $this->get_option( 'modal_title' );
+          $payment_args['logo']   = $this->get_option( 'modal_logo' );
+          
         }
 
         update_post_meta( $order_id, '_flw_payment_txn_ref', $txnref );
